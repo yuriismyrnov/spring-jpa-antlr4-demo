@@ -5,9 +5,11 @@ import com.levi9.demo.wallet.entity.Transaction;
 import com.levi9.demo.wallet.entity.Wallet;
 import com.levi9.demo.wallet.repository.TransactionRepository;
 import com.levi9.demo.wallet.repository.WalletRepository;
+import com.levi9.demo.wallet.service.filter.CriteriaFilterParser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -43,7 +45,9 @@ public class JpaTransactionService implements TransactionService {
 
     @Override
     public Page<Transaction> read(String filter, Pageable pageable) {
-        return transactionRepository.findAll(pageable);
+        Specification<Transaction> specification = (root, query, cb) ->
+                new CriteriaFilterParser(root, cb).parse(filter);
+        return transactionRepository.findAll(specification, pageable);
     }
 
     private Wallet findWallet(String id) {
