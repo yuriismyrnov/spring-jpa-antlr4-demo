@@ -27,7 +27,7 @@ Start a micro-service:
 ./mvnw clean spring-boot:run
 ```
 
-Query transactions, for example those with amount less than or equal to 1200 USD:
+Query transactions, for example those with amount less than or equal to 1500 USD:
 
 ```
 curl -G "http://localhost:8080/v1/transactions" --data-urlencode "filter=amount le 1500 and to.currency.currencyCode eq 'USD'" | jq
