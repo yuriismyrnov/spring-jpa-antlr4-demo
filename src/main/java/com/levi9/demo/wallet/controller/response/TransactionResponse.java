@@ -12,9 +12,9 @@ public class TransactionResponse {
 
     private String id;
 
-    private String from;
+    private WalletResponse from;
 
-    private String to;
+    private WalletResponse to;
 
     private BigDecimal amount;
 
